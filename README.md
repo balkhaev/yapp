@@ -65,6 +65,16 @@ module.exports = {
 };
 ```
 
+Run server
+```sh
+node blog/src
+```
+
+Open admin dashboard and add posts
+```
+GET /admin
+```
+
 Make GraphQL query
 ```gql
 query AllPosts {
@@ -81,7 +91,7 @@ query AllPosts {
 }
 ```
 
-or REST Api request
+Or REST Api request
 ```
 GET /api/posts
 ```
