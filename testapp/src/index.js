@@ -2,6 +2,7 @@ const path = require('path');
 const yapp = require('yapp');
 
 const app = yapp({
+  name: 'TestApp',
   db: {
     adapter: 'mongodb',
   },
