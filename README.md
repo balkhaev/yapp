@@ -9,6 +9,85 @@ Yapp is schema-based framework for creating enterprise-ready web application.
 - Email sender
 - File manager
 
+## Quickstart
+
+Init project
+```
+mkdir blog
+cd blog
+npm init -f
+npm i yapp
+```
+
+Create `blog/src/index.js`
+```js
+const path = require('path');
+const yapp = require('yapp');
+
+const app = yapp({
+  name: 'Blog',
+});
+
+module.exports = app;
+```
+
+Create `blog/src/schemas/Post.js`
+```js
+module.exports = {
+  fields: {
+    author: {
+      type: 'relationship',
+      ref: 'User',
+    },
+    title: {
+      type: 'text'
+    },
+    text: {
+      type: 'text'
+    },
+    status: {
+      type: 'select',
+      options: ['published', 'drafted'],
+    },
+    slug: {
+      type: 'slug',
+      from: 'title',
+    },
+  },
+  methods: {
+    draft() {
+      return this.update({ status: 'drafted' });
+    },
+    publish() {
+      return this.update({ status: 'published' })
+    }
+  },
+};
+```
+
+Make GraphQL query
+```gql
+query AllPosts {
+  allPosts() {
+    id,
+    title,
+    text,
+    author: {
+      id,
+      name,
+      email
+    }
+  }
+}
+```
+
+or REST Api request
+```
+GET /api/posts
+```
+
+**Profit!**
+
 ## Tech-stack
 
 ### Backend
@@ -197,84 +276,3 @@ POST /api/sendmail
   "body": "Test email body"
 }
 ```
-
-## Examples
-
-### Simple blog
-
-Init project
-```
-mkdir blog
-cd blog
-npm init -f
-npm i yapp
-```
-
-Create `blog/src/index.js`
-```js
-const path = require('path');
-const yapp = require('yapp');
-
-const app = yapp({
-  name: 'Blog',
-});
-
-module.exports = app;
-```
-
-Create `blog/src/schemas/Post.js`
-```js
-module.exports = {
-  fields: {
-    author: {
-      type: 'relationship',
-      ref: 'User',
-    },
-    title: {
-      type: 'text'
-    },
-    text: {
-      type: 'text'
-    },
-    status: {
-      type: 'select',
-      options: ['published', 'drafted'],
-    },
-    slug: {
-      type: 'slug',
-      from: 'title',
-    },
-  },
-  methods: {
-    draft() {
-      return this.update({ status: 'drafted' });
-    },
-    publish() {
-      return this.update({ status: 'published' })
-    }
-  },
-};
-```
-
-Make GraphQL query
-```gql
-query AllPosts {
-  allPosts() {
-    id,
-    title,
-    text,
-    author: {
-      id,
-      name,
-      email
-    }
-  }
-}
-```
-
-or REST Api request
-```
-GET /api/posts
-```
-
-**Profit!**
