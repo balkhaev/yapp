@@ -1,13 +1,13 @@
-# Yapp
+# Yapp 🤑
 
-Yapp is schema-based framework for creating enterprise-ready web application.
+Yapp 🤑 is schema-based framework for creating enterprise-ready web application.
 
 ## Features
-- One schema for GraphQL, Mongoose, Elasticsearch, ACL
-- Out-of-box authentication, searching, queue
-- Generated admin dashboard
-- Email sender
-- File manager
+- 🎉 One schema for GraphQL, Mongoose, Elasticsearch, ACL
+- 📦 Out-of-box authentication, searching, queue
+- 🚀 Generated admin dashboard
+- 🐠 Email sender
+- 🌴 File manager
 
 ## Quickstart
 
@@ -242,6 +242,17 @@ input: <textarea />
 ```
 
 - **required** *boolean* - required field
+
+### Methods
+
+Add custom methods for models
+
+### Hooks
+
+#### beforeCreate
+#### afterCreate
+#### beforeSave
+#### afterSave
 
 ## Functions
 
