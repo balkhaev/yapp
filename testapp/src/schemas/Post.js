@@ -5,10 +5,10 @@ module.exports = {
       ref: 'User',
     },
     title: {
-      type: 'text'
+      type: 'text',
     },
     text: {
-      type: 'text'
+      type: 'text',
     },
     status: {
       type: 'select',
@@ -22,6 +22,11 @@ module.exports = {
   methods: {
     toDraft() {
       return this.update({ status: 'drafted' });
+    },
+  },
+  hooks: {
+    afterSave() {
+      axios.post('http://fake.com/endpoint', this);
     },
   },
 };

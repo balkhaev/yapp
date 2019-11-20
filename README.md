@@ -6,6 +6,8 @@ Yapp is schema-based framework for creating enterprise-ready web application.
 - One schema for GraphQL, Mongoose, Elasticsearch, ACL
 - Out-of-box authentication, searching, queue
 - Generated admin dashboard
+- Email sender
+- File manager
 
 ## Tech-stack
 
@@ -23,42 +25,96 @@ Yapp is schema-based framework for creating enterprise-ready web application.
 
 ## Schema
 
-Schema includes mapping for models, acl and methods.
+Schema includes acl, methods, hooks and mapping for models
 
 ### Fields
 
-#### text
-
+#### string
 ```
+type: String
 input: <input type="text" />
 ```
 
-- **maxLength**: maximum length of field
+- **maxLength** *integer* - maximum length of field
+
+#### text
+```
+type: String
+input: <textarea />
+```
+
+- **maxLength** *integer* - maximum length of field
+
+#### richtext
+```
+type: String
+input: <wysiwyg />
+```
+
+- **maxLength** *integer* - maximum length of field
 
 #### email
-
 ```
+type: String
 input: <input type="email" />
 ```
 
-- **maxLength**: maximum length of field
+- **maxLength** *integer* - maximum length of field
 
 #### select
-
 ```
+type: Array
 input: <select />
 ```
 
-- **maxLength**: maximum length of field
-- **options**: options for select
+- **maxLength** *integer* - maximum length of field
+- **options** *array* - options for select
 
 #### password
-
 ```
+type: String
 input: <input type="password" />
 ```
 
-- **maxLength**: maximum length of field
+- **maxLength** *integer* - maximum length of field
+
+#### checkbox
+```
+type: Boolean
+input: <input type="checkbox" />
+```
+
+#### datetime
+```
+type: DateTime
+input: <input type="datetime-local" />
+```
+
+#### integer
+```
+type: Integer
+input: <input type="number" />
+```
+
+#### float
+```
+type: Float
+input: <input type="number" />
+```
+
+#### file
+```
+type: String
+input: <input type="file" />
+```
+
+- **many** *boolean* - array of files
+
+#### relationship
+```
+type: String
+input: <input type="select" />
+```
 
 ## Functions
 
@@ -70,24 +126,31 @@ Password-based strategy authentication.
 POST /api/login
 
 {
-  "login": "",
-  "password": ""
+  "login": "testLogin",
+  "password": "testPassword"
 }
 ```
 
-### Admin UI
+### Queue
 
-Advanced admin dashboard.
+Lifo-based queue
 
 ```
-GET /admin
-```
+POST /api/queue
 
+{
+  "queue": "queueName",
+  "job": {
+    //job data...
+  }
+}
+```
 
 ## Examples
 
 ### Simple blog
 
+Init project
 ```
 mkdir blog
 cd blog
@@ -95,7 +158,7 @@ npm init -f
 npm i yapp
 ```
 
-Create `blog/src/index`
+Create `blog/src/index.js`
 ```js
 const path = require('path');
 const yapp = require('yapp');
