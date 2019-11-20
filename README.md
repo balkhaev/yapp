@@ -35,6 +35,8 @@ type: String
 input: <input type="text" />
 ```
 
+- **unique** *boolean* - unique field
+- **required** *boolean* - required field
 - **maxLength** *integer* - maximum length of field
 
 #### text
@@ -43,6 +45,8 @@ type: String
 input: <textarea />
 ```
 
+- **unique** *boolean* - unique field
+- **required** *boolean* - required field
 - **maxLength** *integer* - maximum length of field
 
 #### richtext
@@ -51,6 +55,8 @@ type: String
 input: <wysiwyg />
 ```
 
+- **unique** *boolean* - unique field
+- **required** *boolean* - required field
 - **maxLength** *integer* - maximum length of field
 
 #### email
@@ -59,6 +65,8 @@ type: String
 input: <input type="email" />
 ```
 
+- **unique** *boolean* - unique field
+- **required** *boolean* - required field
 - **maxLength** *integer* - maximum length of field
 
 #### select
@@ -67,6 +75,7 @@ type: Array
 input: <select />
 ```
 
+- **required** *boolean* - required field
 - **maxLength** *integer* - maximum length of field
 - **options** *array* - options for select
 
@@ -76,6 +85,8 @@ type: String
 input: <input type="password" />
 ```
 
+- **unique** *boolean* - unique field
+- **required** *boolean* - required field
 - **maxLength** *integer* - maximum length of field
 
 #### checkbox
@@ -84,11 +95,18 @@ type: Boolean
 input: <input type="checkbox" />
 ```
 
+- **required** *boolean* - required field
+
 #### datetime
 ```
 type: DateTime
 input: <input type="datetime-local" />
 ```
+
+- **required** *boolean* - required field
+- **format** *string* - formatting for date
+- **yearMin** *integer* - minimal year
+- **yearMax** *integer* - maximum year
 
 #### integer
 ```
@@ -96,25 +114,45 @@ type: Integer
 input: <input type="number" />
 ```
 
+- **max** *integer* - maximum value
+- **min** *integer* - minimal value
+- **required** *boolean* - required field
+
 #### float
 ```
 type: Float
 input: <input type="number" />
 ```
 
+- **max** *integer* - maximum value
+- **min** *integer* - minimal value
+- **required** *boolean* - required field
+
 #### file
 ```
 type: String
-input: <input type="file" />
+input: <input type="file" multiple? />
 ```
 
+- **required** *boolean* - required field
 - **many** *boolean* - array of files
 
 #### relationship
 ```
 type: String
-input: <input type="select" />
+input: <input type="select" multiple? />
 ```
+
+- **required** *boolean* - required field
+- **many** *boolean* - array of relationships
+
+#### json
+```
+type: Object
+input: <textarea />
+```
+
+- **required** *boolean* - required field
 
 ## Functions
 
@@ -133,7 +171,7 @@ POST /api/login
 
 ### Queue
 
-Lifo-based queue
+Add job to queue
 
 ```
 POST /api/queue
@@ -143,6 +181,20 @@ POST /api/queue
   "job": {
     //job data...
   }
+}
+```
+
+### Email
+
+Send email
+
+```
+POST /api/sendmail
+
+{
+  "to": "test@domain.com",
+  "subject": "Test email subject",
+  "body": "Test email body"
 }
 ```
 
